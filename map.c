@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main.c                                          :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akarasso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/09 13:23:11 by akarasso          #+#    #+#             */
-/*   Updated: 2018/04/10 14:53:16 by akarasso         ###   ########.fr       */
+/*   Created: 2018/04/10 14:46:08 by akarasso          #+#    #+#             */
+/*   Updated: 2018/04/10 15:22:02 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
+#include "libft.h"
 #include "fillit.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-int	main(int argc, char **argv)
+int		map_crt(t_fillit *fillit)
 {
-	int		fd;
-	t_fillit fillit;
 	char	**map;
+	int		i;
 
-	fillit.lst = 0;
-	if (argc == 2 && (fd = open(argv[1], O_RDONLY)) > 0)
+	i = 0;
+	if (!(map = (char**)ft_memalloc(fillit->len * 4)))
+		return (0);
+	while (i < fillit->len * 4)
 	{
-		get_pieces(fd, &fillit.lst);
-		fillit.len = ft_lstcount(fillit.lst);
-		map_crt(&fillit);
-		printf("La taille de la liste vaut %d", fillit.len);
+		if (!(map[i] = (char *)ft_memalloc(fillit->len * 4)))
+			return (0);
+		i++;
 	}
+	return (1);
 }
